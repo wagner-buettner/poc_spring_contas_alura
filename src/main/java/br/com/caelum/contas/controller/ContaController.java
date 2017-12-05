@@ -2,6 +2,7 @@ package br.com.caelum.contas.controller;
 
 import br.com.caelum.contas.dao.ContaDAO;
 import br.com.caelum.contas.modelo.Conta;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,13 @@ import java.util.List;
 @Controller
 public class ContaController {
 
+    private ContaDAO dao;
+
+    @Autowired
+    public ContaController(ContaDAO dao){
+        this.dao = dao;
+    }
+
     @RequestMapping(value="/form")
     public String form() {
         return "formulario";
@@ -32,7 +40,6 @@ public class ContaController {
             return "formulario";
         }
 
-        ContaDAO dao = new ContaDAO();
         dao.adiciona(conta);
         return "conta-adicionada";
     }
@@ -40,7 +47,6 @@ public class ContaController {
     @RequestMapping("/listaContas")
     public ModelAndView lista(){
 
-        ContaDAO dao = new ContaDAO();
         List<Conta> contas = dao.lista();
 
         ModelAndView mv = new ModelAndView("conta/lista");
@@ -51,7 +57,6 @@ public class ContaController {
 
     @RequestMapping("/removeConta")
     public String remove(Conta conta){
-        ContaDAO dao = new ContaDAO();
         dao.remove(conta);
 
         return "redirect:listaContas";
@@ -59,21 +64,18 @@ public class ContaController {
 
     @RequestMapping("/mostraConta")
     public String mostra(Long id, Model model) {
-        ContaDAO dao = new ContaDAO();
         model.addAttribute("conta", dao.buscaPorId(id));
         return "conta/mostra";
     }
 
     @RequestMapping("/alteraConta")
     public String altera(Conta conta) {
-        ContaDAO dao = new ContaDAO();
         dao.altera(conta);
         return "redirect:listaContas";
     }
 
     @RequestMapping("/pagaConta")
     public void paga(Conta conta, HttpServletResponse response){
-        ContaDAO dao = new ContaDAO();
         dao.paga(conta.getId());
 
         response.setStatus(200);

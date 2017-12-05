@@ -6,6 +6,9 @@
     <title>Bem Vindo!</title>
 </head>
 <body>
-Bem vindo ao Sistema de Contas!
+<h2>Página inicial da Lista de Contas</h2>
+<p>Bem vindo, ${usuarioLogado.login}</p>
+<a href="listaContas">Clique aqui</a> para acessar a lista de contas<br/>
+<a href="logout">Sair do Sistema</a>
 </body>
 </html>

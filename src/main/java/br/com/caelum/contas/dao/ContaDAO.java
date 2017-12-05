@@ -1,28 +1,28 @@
 package br.com.caelum.contas.dao;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import br.com.caelum.contas.modelo.Conta;
+import br.com.caelum.contas.modelo.TipoDaConta;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import br.com.caelum.contas.ConnectionFactory;
-import br.com.caelum.contas.modelo.Conta;
-import br.com.caelum.contas.modelo.TipoDaConta;
-
+@Repository
 public class ContaDAO {
 	private Connection connection;
 
-	public ContaDAO() {
-		try {
-			this.connection = new ConnectionFactory().getConnection();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
+	@Autowired
+	public ContaDAO(DataSource ds) {
+        try {
+            this.connection = ds.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 	public void adiciona(Conta conta) {
 		String sql = "insert into contas (descricao, paga, valor, tipo) values (?,?,?,?)";

@@ -31,6 +31,7 @@
 <body>
 
     <table>
+        <tr><a href="logout">Sair do Sistema</a></tr>
         <tr>
             <th>Código</th>
             <th>Descrição</th>

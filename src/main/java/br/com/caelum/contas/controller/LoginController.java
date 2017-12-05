@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
  * @author wagner on 04/12/17
  */
 @Controller
-public class UsuarioController {
+public class LoginController {
 
     @RequestMapping("/loginForm")
     public String formulario(){
@@ -29,4 +29,11 @@ public class UsuarioController {
 
         return "redirect:loginForm";
     }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:loginForm";
+    }
+
 }

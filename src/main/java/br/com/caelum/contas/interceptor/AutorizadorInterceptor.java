@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 
+    @Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object controller)
 	throws Exception {
 
